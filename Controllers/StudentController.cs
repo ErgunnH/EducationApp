@@ -97,13 +97,11 @@ namespace EducationApp.Controllers
             {
                 var user = await _userManager.FindByNameAsync(User.Identity.Name);
 
-                var student = _appDbContext.Students.Include(st => st.EnrollmentRequests).FirstOrDefault(x => x.Id == user.Id);
+                var student = _appDbContext.Students.Include(st => st.Enrollments.Where(e=>e.IsCancelled==false)).FirstOrDefault(x => x.Id == user.Id);               
 
-                var cancelledRequest = student.EnrollmentRequests.Count;
+                var training = _appDbContext.Trainings.Include(st => st.Enrollments.Where(e => e.IsCancelled == false)).FirstOrDefault(x => x.TrainingId == id);
 
-                var training = _appDbContext.Trainings.FirstOrDefault(x => x.TrainingId == id);
-
-                if (training.Enrollments.Count - cancelledRequest < training.Quota)
+                if (training.Enrollments.Count  < training.Quota)
                 {
                     await _appDbContext.Enrollments.AddAsync(new Enrollment
                     {
@@ -138,7 +136,7 @@ namespace EducationApp.Controllers
             }
 
 
-            return View();
+            return RedirectToAction("Index", "Student");
 
         }
 

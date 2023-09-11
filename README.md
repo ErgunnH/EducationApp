@@ -29,7 +29,7 @@ Bu proje, eðitmenlerin kendi eðitim içeriklerini yükleyebildiði, eðitim fiyatýný
 ## Proje Ýçeriði
 
 -Projede 3 çeþit kullanýcý vardýr Eðitmen - Öðrenci -Admin
--Eðitmenler eðitimler oluþturup bunlarýn içeriklerini projeye yükler ve fiyatlarýný belirler
+-Eðitmenler eðitimler oluþturup bunlarýn içeriklerini projeye yükler ve fiyatlarýný belirler 
 -Öðrenciler eðitimleri satýn alabilir, kayýt olduðu dersleri takip edebilir, ve kaydý iptal edebilir
--Admin panel kullanýcý rollerini düzenler veya kullanýcýlarý silebilir 
+-Admin panel kullanýcý rollerini düzenler veya kullanýcýlarý silebilir (EKSÝKLER - Kullanýcý yönetimi tam olarak bitmedi, Kayýt Yapan Eðitmenin iç eðitmen mi dýþ eðitmen mi ayarý yapýlmadý )
 

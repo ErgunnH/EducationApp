@@ -10,7 +10,7 @@ namespace EducationApp.Models
     
         public virtual ICollection<Enrollment> Enrollments { get; set; }
 
-        public virtual ICollection<EnrollmentRequest> EnrollmentRequests { get; set; }
+       
 
     }
 }
