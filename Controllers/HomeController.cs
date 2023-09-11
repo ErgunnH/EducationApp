@@ -23,7 +23,7 @@ namespace EducationApp.Controllers
         private readonly ILogger<HomeController> _logger;
 
         private readonly AppDbContext _appDbContext;
-      
+
         public HomeController(ILogger<HomeController> logger, AppDbContext appDbContext, UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager)
         {
 
@@ -35,14 +35,14 @@ namespace EducationApp.Controllers
 
             _roleManager = roleManager;
 
-         
 
-        
+
+
         }
 
         [AllowAnonymous]
         public async Task<IActionResult> Index()
-        {           
+        {
 
             try
             {
@@ -62,39 +62,61 @@ namespace EducationApp.Controllers
                 }
 
 
+                string pass = "Qwe123!";
+
 
                 var admin = new IdentityUser
                 {
                     UserName = "Admin",
 
-                    EmailConfirmed= true,
+                    EmailConfirmed = true,
 
                 };
 
-				var user=await _userManager.FindByNameAsync(admin.UserName);
-
-                if (user == null)
+                var student = new Student
                 {
-					await _userManager.CreateAsync(admin, "Qwe123!");
+                    UserName = "Student",
 
-					await _userManager.AddToRoleAsync(admin, "Admin");
-				}
+                    EmailConfirmed = true,
 
-			
+                };
 
+                var instrocter = new Instrocter
+                {
+                    UserName = "Instrocter",
 
+                    EmailConfirmed = true,
 
-			}
+                };
+
+                //var user = await _userManager.FindByNameAsync(admin.UserName);
+
+                var res1=await _userManager.CreateAsync(admin, pass);
+
+                var res2 = await _userManager.CreateAsync(student, pass);
+
+                var res3 = await _userManager.CreateAsync(instrocter, pass);
+
+                var res4 = await _userManager.AddToRoleAsync(admin, "Admin");
+
+                var res5 = await _userManager.AddToRoleAsync(student, "Student");
+
+                var res6 = await _userManager.AddToRoleAsync(instrocter, "Instrocter");
+
+                return View(model:@"{""username""=""Admin"",""Password""=" + pass + @",""UserRole""=""Admin"",
+                                    ""username"" = ""Student"", ""Password"" = " + pass + @",""UserRole"" = ""Student"",
+                                    ""username"" = ""Instrocter"", ""Password"" = " + pass + @", ""UserRole"" = ""Instrocter""}");
+            }
             catch (Exception ex)
             {
 
-
+                return View(model: ex.Message);
 
             }
 
-
-			return View(model: @"{""username""=""Admin"",""Password""=""Qwe123!"",""UserRole""=""Admin"",""Roles"":[""Admin"", ""Student"", ""Instrocter""]}");
-		}
+             
+            
+        }
 
         public IActionResult Privacy()
         {
