@@ -19,7 +19,6 @@ var configuration = builder.Configuration;
 // Add services to the container.
 builder.Services.AddMvc();
 
-
     
 builder.Services.AddDbContext<AppDbContext>(options =>
             options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
@@ -37,12 +36,12 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
 builder.Services.ConfigureApplicationCookie(options =>
 {
     
-
-    // Yetkilendirme baþarýsýz olduðunda yönlendirilecek sayfa
     options.LoginPath = "/Login";
 
+    // Yetkilendirme baþarýsýz olduðunda yönlendirilecek sayfa
     options.LogoutPath = "/Login";
 
+    // Yetkilendirme baþarýsýz olduðunda yönlendirilecek sayfa
     options.AccessDeniedPath = "/Login";
 
     options.ReturnUrlParameter = "";
@@ -74,7 +73,7 @@ builder.Services.Configure<IdentityOptions>(options =>
 
 });
 
-
+//validasyon servisleri
 builder.Services.AddScoped<IValidator<UserRegisterDto>, UserValidationRules>();
 
 builder.Services.AddScoped<IValidator<InstrocterFileUploadDto>, InstrocterFileUploadValidationRules>();
