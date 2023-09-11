@@ -1,0 +1,107 @@
+﻿@model StudentTrainingPurchaseDetail
+
+@{
+
+
+    Layout = "~/Views/Student/Shared/_StudentLayout.cshtml";
+}
+
+
+<div class="right_col" role="main">
+
+    <div class="">
+        <div class="page-title">
+            <div class="title_left">
+                <h3>Eğitim Satın Al</h3>
+            </div>
+
+            <div class="title_right">
+                <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search for...">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button">Go!</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="clearfix"></div>
+
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>Eğitim satın Al</h2>
+                        <ul class="nav navbar-right panel_toolbox">
+                            <li>
+                                <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li>
+                                        <a href="#">Settings 1</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Settings 2</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a class="close-link"><i class="fa fa-close"></i></a>
+                            </li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+
+                        <div class="col-md-7 col-sm-7 col-xs-12">
+                            <div class="product-image">
+                                <img src="~/uploads/@Model.FilePath" alt="..." />
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-5 col-sm-5 col-xs-12" style="border:0px solid #e5e5e5;">
+
+                            <h3 class="prod_title">@Model.Title</h3>
+
+                            <p>Başlangıç Tarihi : @Model.StartDate</p>
+                            <br />
+                            <p>Bitiş Tarihi : @Model.EndDate</p>
+                            <br />
+                            <p>İçerik Sayısı : @Model.Contents.Count</p>
+                            <br />
+                            <p>Kayıt Sayısı/Kontenjan : @Model.Enrollments.Count/@Model.Quota</p>
+                            <br />
+
+
+
+                            <div class="">
+                                <div class="product_price">
+                                    <h1 class="price">TL @Model.SumCost</h1>
+                                    <br>
+                                </div>
+                            </div>
+
+                            <div class="text-white" asp-validation-summary="ModelOnly"></div>
+
+                            <div class="">
+                                <button type="button" class="btn btn-default btn-lg" onclick="location.href='@Url.Action("Buy", "Student",new {id=Model.TrainingId} )'">Satın Al</button>
+                            </div>
+
+
+
+                        </div>
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
