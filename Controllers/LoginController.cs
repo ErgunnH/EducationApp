@@ -24,6 +24,7 @@ namespace EducationApp.Controllers
         public LoginController(SignInManager<IdentityUser> signInManager, UserManager<IdentityUser> userManager)
         {
             _signInManager = signInManager;
+
             _userManager = userManager;
 
         }
@@ -37,29 +38,27 @@ namespace EducationApp.Controllers
 
         [HttpPost]
         public async Task<ActionResult> Index(UserLoginDto userLoginDto)
-        {
+        {   
+
+
+            //Role göre Controllerlara yönlendirme yapıyor
               
             var result = await _signInManager.PasswordSignInAsync(userLoginDto.Username, userLoginDto.Password, userLoginDto.Remember, true);           
 
             if (result.Succeeded)
             {
-                var user = await _userManager.FindByNameAsync(userLoginDto.Username);
+                var user = await _userManager.FindByNameAsync(userLoginDto.Username);     
+                
+                var role=await _userManager.GetRolesAsync(user);
 
-                //TempData["UserData"] = JsonConvert.SerializeObject(new UserViewData
-                //{
-                //    Username = user.UserName,
-
-                //    Email = user.Email
-                //});
-
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", role[0]);
             }
 
 
             return View();
         }
 
-        // GET: LoginController/Details/5
+        
       
         [Authorize]  
         public async Task<ActionResult> Logout()

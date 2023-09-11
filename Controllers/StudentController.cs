@@ -26,13 +26,12 @@ namespace EducationApp.Controllers
         public async Task<IActionResult> Index()
         {
 
+            //Kayıt Yaptırmadıgı eğitimler listeleniyor
 
             var user = await _userManager.FindByNameAsync(User.Identity.Name);
 
             var student = _appDbContext.Students.Include(studnet => studnet.Enrollments).FirstOrDefault(x => x.Id == user.Id);
-
-
-            //Kayıt Yaptırmadıgı eğitimler listeleniyor
+            
             var trainings = _appDbContext.Trainings.Where(y => !y.Enrollments.Any(z => student.Enrollments.Contains(z)) && y.StartDate > DateTime.Now).Select(x => new StudentTrainingDto
             {
                 TrainingId = x.TrainingId,
@@ -44,12 +43,6 @@ namespace EducationApp.Controllers
 
             }).ToList();
 
-            //kayıt yaptırdığı dersler
-
-
-
-
-
             return View(trainings);
         }
 
@@ -58,13 +51,12 @@ namespace EducationApp.Controllers
         public async Task<IActionResult> EducationPurchase(int id)
         {
 
+            //Eğitim Detayları Satın Alma Sayfası
 
             var user = await _userManager.FindByNameAsync(User.Identity.Name);
 
             var student = _appDbContext.Students.Include(studnet => studnet.Enrollments).FirstOrDefault(x => x.Id == user.Id);
-
-
-            //Eğitim Detayları Satın Alma Sayfası
+            
             var training = _appDbContext.Trainings.Select(x => new StudentTrainingPurchaseDetail
             {
 
@@ -97,7 +89,7 @@ namespace EducationApp.Controllers
         public async Task<IActionResult> Buy(int id)
         {
 
-            //Satın Alma Controllerı satın alma başarılı ise Enrollmente eklme yapıyor
+            //Satın Alma satın alma başarılı ise Enrollments tablosuna eklme yapıyor
 
             var IsPaymentOk = true;
 
@@ -197,6 +189,8 @@ namespace EducationApp.Controllers
 
         public async Task<IActionResult> EducationProfileDetail(int id)
         {
+            
+            //Profilindeki eğitimin içeriklerini listeler (pdf-mp4-jpg ...)
 
             var contents = _appDbContext.Contents.Where(x => x.TrainingId == id).Select(y => new InstrocterContentDto
             {
@@ -215,6 +209,9 @@ namespace EducationApp.Controllers
 
         public async Task<IActionResult> CancelledEnrolmentRequest(int id)
         {
+
+            //Eğitime katılım taleplerinin iptal edilmesini kontrol eder
+
             var user = await _userManager.FindByNameAsync(User.Identity.Name);
 
             var student = _appDbContext.Students.Include(st => st.Enrollments).FirstOrDefault(x => x.Id == user.Id);

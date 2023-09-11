@@ -1,27 +1,24 @@
 ﻿using EducationApp.Dtos;
 using EducationApp.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Data;
 
 namespace EducationApp.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
 
-        private readonly UserManager<IdentityUser> _userManager;
-
-        private readonly AppDbContext _appDbContext;
-
-        private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly UserManager<IdentityUser> _userManager;    
 
 
-
-        public AdminController(UserManager<IdentityUser> userManager, AppDbContext appDbContext, RoleManager<IdentityRole> roleManager)
+        public AdminController(UserManager<IdentityUser> userManager)
         {
             _userManager = userManager;
-            _appDbContext = appDbContext;
-            _roleManager = roleManager;
+           
         }
         public IActionResult Index()
         {

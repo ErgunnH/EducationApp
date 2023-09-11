@@ -5,7 +5,7 @@ namespace EducationApp.Services
     public class FileUpload : IFileUploadServices
     {   
 
-
+        //Dosyayı dizine kaydediyor
         //fonksiyonlar birleştir
         public string Save(IFormFile file, string userId, string trainingName)
         {

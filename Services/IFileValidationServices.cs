@@ -2,6 +2,8 @@
 
 namespace EducationApp.Services
 {
+
+    //dosya dizininde veya dosyada sorun olup olmadığını kontrol ediyor
     public interface IFileValidationServices
     {   
 

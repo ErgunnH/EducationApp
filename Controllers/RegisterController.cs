@@ -18,7 +18,7 @@ namespace EducationApp.Controllers
 		
 
 		private readonly IValidator<UserRegisterDto> _validator;
-        public RegisterController(UserManager<IdentityUser> userManager, IValidator<UserRegisterDto> validator, )
+        public RegisterController(UserManager<IdentityUser> userManager, IValidator<UserRegisterDto> validator )
         {
             
             _userManager = userManager;
@@ -60,7 +60,7 @@ namespace EducationApp.Controllers
 
 					result = await _userManager.CreateAsync(instrocter, userRegisterDto.Password);
 
-					var res = await _userManager.AddToRoleAsync(instrocter, "Instrocter");
+                    resRole = await _userManager.AddToRoleAsync(instrocter, "Instrocter");
 
 
 				}

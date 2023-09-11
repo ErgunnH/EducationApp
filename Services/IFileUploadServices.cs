@@ -2,6 +2,8 @@
 
 namespace EducationApp.Services
 {
+
+    //Dosyayı dizine kaydediyor
     public interface IFileUploadServices
     {
 

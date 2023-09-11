@@ -5,7 +5,7 @@ namespace EducationApp.Services
     public class FileValidation : IFileValidationServices
     {
 
-
+        //dosya dizininde veya dosyada sorun olup olmadığını kontrol ediyor
         //bu iki fonksiyon birleştirilmeli
 
         public ValidateResult ValidateResult(IFormFile file, string userId, string trainingName, params string[] contentType)

@@ -49,28 +49,25 @@ namespace EducationApp.Controllers
         public async Task<IActionResult> Index()
         {
 
-
+            //Eğitmenin Eğitimleri Listeleniyor
             var user = await _userManager.FindByNameAsync(User.Identity.Name);
 
             List<InstrocterTrainingDto> trainings = new();
 
-            if (user != null)
+            trainings = await _appDbContext.Trainings.Where(x => x.InstrocterId == user.Id).Select(x => new InstrocterTrainingDto
             {
-                trainings = await _appDbContext.Trainings.Where(x => x.InstrocterId == user.Id).Select(x => new InstrocterTrainingDto
-                {
-                    TrainingId = x.TrainingId,
-                    Title = x.Title,
-                    FilePath = x.FilePath,
-                    Cost = x.Cost
-                }).ToListAsync();
+                TrainingId = x.TrainingId,
+                Title = x.Title,
+                FilePath = x.FilePath,
+                Cost = x.Cost
 
-            }
+            }).ToListAsync();
 
 
             return View(trainings);
         }
 
-      
+
         public IActionResult AddEducation()
         {
 
@@ -85,6 +82,8 @@ namespace EducationApp.Controllers
         [HttpPost]
         public async Task<IActionResult> AddEducation(InstrocterFileUploadDto fileData, IFormFile file)
         {
+            //Eğitmenin Eğitim Eklemeleri Yapmasını Yönetiyor
+
 
             var user = await _userManager.FindByNameAsync(User.Identity.Name);
 
@@ -155,7 +154,7 @@ namespace EducationApp.Controllers
         public async Task<IActionResult> UpdateEducation(int id)
         {
 
-            //var user = await _userManager.FindByNameAsync(User.Identity.Name);
+            //Eğitmenin Eğitim İçeriğini Listeliyor
 
             var contets = await _appDbContext.Contents.Where(x => x.TrainingId == id).Select(x => new InstrocterContentDto
             {
@@ -163,34 +162,32 @@ namespace EducationApp.Controllers
                 TrainingId = x.TrainingId,
                 ContentName = x.ContentName,
                 ContentPath = x.ContentPath,
-                ContentType= x.ContentType,
+                ContentType = x.ContentType,
 
             }).ToListAsync();
-
-
-
-            
 
             return View(contets);
         }
 
 
         [HttpPost]
-        public async Task<IActionResult> UpdateEducation(IFormFile file,string contentName,int id)
+        public async Task<IActionResult> UpdateEducation(IFormFile file, string contentName, int id)
         {
 
-            var training = await _appDbContext.Trainings.Select(x=> new InstrocterTrainingDto
+            //Eğitmenin Eğitim İçeriğini Ekleme Yapıyor
+
+            var training = await _appDbContext.Trainings.Select(x => new InstrocterTrainingDto
             {
                 TrainingId = x.TrainingId,
                 Title = x.Title,
                 FilePath = x.FilePath,
                 Cost = x.Cost
-                
-
-            }).FirstOrDefaultAsync(y=>y.TrainingId==id);
 
 
-            var fileValidationResult = _fileValidator.ValidateResult(file, training.FilePath.Split("/")[0], training.Title, contentName, "mp4", "jpeg","jpg","png","pdf");
+            }).FirstOrDefaultAsync(y => y.TrainingId == id);
+
+
+            var fileValidationResult = _fileValidator.ValidateResult(file, training.FilePath.Split("/")[0], training.Title, contentName, "mp4", "jpeg", "jpg", "png", "pdf");
 
             if (fileValidationResult.IsValid)
             {
@@ -204,7 +201,7 @@ namespace EducationApp.Controllers
 
                     ContentType = file.ContentType,
 
-                    ContentPath = result,                   
+                    ContentPath = result,
 
 
                 });
