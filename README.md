@@ -11,7 +11,7 @@ Bu proje, eðitmenlerin kendi eðitim içeriklerini yükleyebildiði, eðitim fiyatýný
 
 ## Kullanýlan Teknolojiler
 
-- Frontend: HTML, CSS, JavaScript 
+- Frontend: HTML, CSS, JavaScript (Hazýr Þablonlar Kullanýlmýþtýr)
 - Backend: C# , .Net Core, MVC
 - Veritabaný: MSSQL
 - Diðer Kütüphaneler: ASP NET IDENTITY,FLUENT VALIDATÝON,EF CORE
